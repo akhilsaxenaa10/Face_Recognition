@@ -1,11 +1,14 @@
 import cv2
-import os
 
-# Folder containing your images
-image_folder = 'smiling_babies'
-
-# Get all JPG files from the folder
-image_files = [os.path.join(image_folder, file) for file in os.listdir(image_folder) if file.endswith('.jpg')]
+image_files = [
+    "smiling_babies/baby1.jpg",
+    "smiling_babies/baby2.jpg",
+    "smiling_babies/baby3.jpg",
+    "smiling_babies/baby4.jpg",
+    "smiling_babies/baby5.jpg",
+    "smiling_babies/baby6.jpg",
+    "smiling_babies/baby7.jpg"
+]
 
 # Load Haar Cascade classifiers
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
@@ -43,8 +46,8 @@ for file in image_files:
         for (sx, sy, sw, sh) in smiles:
             cv2.rectangle(roi_ColorImg, (sx, sy), (sx + sw, sy + sh), (255, 0, 0), 2)
 
-    # Show the final image
-    cv2.imshow(f"Detected - {os.path.basename(file)}", img)
+    # Show the final images
+    cv2.imshow(f"Detected - {file.split('/')[-1]}", img)
     cv2.waitKey(0)
 
 # Close all windows after processing
