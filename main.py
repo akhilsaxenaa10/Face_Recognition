@@ -1,6 +1,4 @@
 import cv2
-import streamlit as st
-import numpy as np
 
 image_files = [
     "smiling_babies/baby1.jpg",
@@ -21,7 +19,7 @@ smile_cascade = cv2.CascadeClassifier("haarcascade_smile.xml")
 for file in image_files:
     img = cv2.imread(file)
     if img is None:
-        st.write(f"Couldn't load image: {file}")
+        print(f"Couldn't load image: {file}")
         continue
 
     # Convert to grayscale
@@ -48,13 +46,9 @@ for file in image_files:
         for (sx, sy, sw, sh) in smiles:
             cv2.rectangle(roi_ColorImg, (sx, sy), (sx + sw, sy + sh), (255, 0, 0), 2)
 
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
     # Show the final images
-    #cv2.imshow(f"Detected - {file.split('/')[-1]}", img)
-    #cv2.waitKey(0)
-     # Display the image with Streamlit
-    st.image(img_rgb, caption=f"Detected - {file.split('/')[-1]}", use_column_width=True)
-
+    cv2.imshow(f"Detected - {file.split('/')[-1]}", img)
+    cv2.waitKey(0)
+     
 # Close all windows after processing
 cv2.destroyAllWindows()
